@@ -8,12 +8,39 @@
 </head>
 <body>
     <div class="container">
-        <h1>Your Top Tracks</h1>
-        <ul>
-            {% for track in tracks %}
-            <li>{{ track['name'] }} by {{ track['artists'][0]['name'] }}</li>
+        <h1>Your Spotify Stats</h1>
+        <form method="GET" action="/stats">
+            <label for="category">Select Category:</label>
+            <select id="category" name="category" onchange="this.form.submit()">
+                <option value="tracks" {% if category == 'tracks' %}selected{% endif %}>Top Songs</option>
+                <option value="artists" {% if category == 'artists' %}selected{% endif %}>Top Artists</option>
+            </select>
+
+            <label for="time_range">Select Time Range:</label>
+            <select id="time_range" name="time_range" onchange="this.form.submit()">
+                <option value="short_term" {% if time_range == 'short_term' %}selected{% endif %}>This Month</option>
+                <option value="medium_term" {% if time_range == 'medium_term' %}selected{% endif %}>This Year</option>
+                <option value="long_term" {% if time_range == 'long_term' %}selected{% endif %}>All Time</option>
+            </select>
+
+            <label for="limit">Select Number of Results:</label>
+            <select id="limit" name="limit" onchange="this.form.submit()">
+                <option value="10" {% if limit == '10' %}selected{% endif %}>Top 10</option>
+                <option value="50" {% if limit == '50' %}selected{% endif %}>Top 50</option>
+                <option value="100" {% if limit == '100' %}selected{% endif %}>Top 100</option>
+            </select>
+        </form>
+
+        <div class="grid">
+            {% for item in items %}
+            <div class="grid-item">
+                {% if item.image %}
+                    <img src="{{ item.image }}" alt="{{ item.name }}" class="track-image">
+                {% endif %}
+                <p>{{ loop.index }}. <strong>{{ item.name }}</strong>{% if item.artist %} - {{ item.artist }}{% endif %}</p>
+            </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 </body>
 </html>

@@ -39,10 +39,43 @@ def stats():
     token_info = session.get('token_info')
     if not token_info:
         return redirect('/')
-    
+
     sp = spotipy.Spotify(auth=token_info['access_token'])
-    top_tracks = sp.current_user_top_tracks(limit=10)
-    return render_template('stats.html', tracks=top_tracks['items'])
+
+    # Get selected dropdown values (with defaults)
+    category = request.args.get('category', 'tracks')
+    time_range = request.args.get('time_range', 'medium_term')
+    limit = int(request.args.get('limit', '10'))
+
+    items = []
+
+    if category == 'tracks':
+        results = sp.current_user_top_tracks(limit=limit, time_range=time_range)
+        items = [
+            {
+                'name': track['name'],
+                'artist': track['artists'][0]['name'],
+                'image': track['album']['images'][0]['url'] if track['album']['images'] else None
+            }
+            for track in results['items']
+        ]
+    elif category == 'artists':
+        results = sp.current_user_top_artists(limit=limit, time_range=time_range)
+        items = [
+            {
+                'name': artist['name'],
+                'image': artist['images'][0]['url'] if artist['images'] else None
+            }
+            for artist in results['items']
+        ]
+
+    return render_template(
+        'stats.html',
+        items=items,
+        category=category,
+        time_range=time_range,
+        limit=limit
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
