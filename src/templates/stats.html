@@ -1,46 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Spotify Stats</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Your Spotify Stats</h1>
-        <form method="GET" action="/stats">
-            <label for="category">Select Category:</label>
-            <select id="category" name="category" onchange="this.form.submit()">
-                <option value="tracks" {% if category == 'tracks' %}selected{% endif %}>Top Songs</option>
-                <option value="artists" {% if category == 'artists' %}selected{% endif %}>Top Artists</option>
-            </select>
+{% extends "base.html" %}
 
-            <label for="time_range">Select Time Range:</label>
-            <select id="time_range" name="time_range" onchange="this.form.submit()">
-                <option value="short_term" {% if time_range == 'short_term' %}selected{% endif %}>This Month</option>
-                <option value="medium_term" {% if time_range == 'medium_term' %}selected{% endif %}>This Year</option>
-                <option value="long_term" {% if time_range == 'long_term' %}selected{% endif %}>All Time</option>
-            </select>
+{% block content %}
 
-            <label for="limit">Select Number of Results:</label>
-            <select id="limit" name="limit" onchange="this.form.submit()">
-                <option value="10" {% if limit == '10' %}selected{% endif %}>Top 10</option>
-                <option value="50" {% if limit == '50' %}selected{% endif %}>Top 50</option>
-                <option value="100" {% if limit == '100' %}selected{% endif %}>Top 100</option>
-            </select>
-        </form>
+<div class="container">
+    <h1>Your Spotify Stats</h1>
 
-        <div class="grid">
-            {% for item in items %}
-            <div class="grid-item">
-                {% if item.image %}
-                    <img src="{{ item.image }}" alt="{{ item.name }}" class="track-image">
-                {% endif %}
-                <p>{{ loop.index }}. <strong>{{ item.name }}</strong>{% if item.artist %} - {{ item.artist }}{% endif %}</p>
-            </div>
-            {% endfor %}
+    <form method="GET" action="/stats">
+        <label for="category">Select Category:</label>
+        <select id="category" name="category" onchange="this.form.submit()">
+            <option value="tracks" {% if category == 'tracks' %}selected{% endif %}>Top Songs</option>
+            <option value="artists" {% if category == 'artists' %}selected{% endif %}>Top Artists</option>
+        </select>
+
+        <label for="time_range">Select Time Range:</label>
+        <select id="time_range" name="time_range" onchange="this.form.submit()">
+            <option value="short_term" {% if time_range == 'short_term' %}selected{% endif %}>This Month</option>
+            <option value="medium_term" {% if time_range == 'medium_term' %}selected{% endif %}>This Year</option>
+            <option value="long_term" {% if time_range == 'long_term' %}selected{% endif %}>All Time</option>
+        </select>
+
+        <label for="limit">Select Number of Results:</label>
+        <select id="limit" name="limit" onchange="this.form.submit()">
+            <option value="10" {% if limit == '10' %}selected{% endif %}>Top 10</option>
+            <option value="50" {% if limit == '50' %}selected{% endif %}>Top 50</option>
+            <option value="100" {% if limit == '100' %}selected{% endif %}>Top 100</option>
+        </select>
+    </form>
+
+    <div class="grid">
+        {% for item in items %}
+        <div class="grid-item" title="Played {{ item.play_count }} times in your last 50 songs.">
+            {% if item.image %}
+                <img src="{{ item.image }}" alt="{{ item.name }}" class="track-image">
+            {% endif %}
+            <p>{{ loop.index }}. <strong>{{ item.name }}</strong>{% if item.artist %} - {{ item.artist }}{% endif %}</p>
         </div>
+        {% endfor %}
     </div>
-</body>
-</html>
+</div>
+
+{% endblock %}
+

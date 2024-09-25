@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Recently Played Tracks</h1>
+
+    <div class="grid">
+        {% for item in items %}
+        <div class="grid-item" title="Played at: {{ item.played_at }}">
+            {% if item.image %}
+                <img src="{{ item.image }}" alt="{{ item.name }}" class="track-image">
+            {% endif %}
+            <p>{{ loop.index }}. <strong>{{ item.name }}</strong>{% if item.artist %} - {{ item.artist }}{% endif %}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
