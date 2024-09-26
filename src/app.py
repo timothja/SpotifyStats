@@ -37,10 +37,10 @@ def callback():
     code = request.args.get('code')
     token_info = sp_oauth.get_access_token(code)
     session['token_info'] = token_info
-    return redirect(url_for('stats'))
+    return redirect(url_for('tops'))
 
-@app.route('/stats')
-def stats():
+@app.route('/tops')
+def tops():
     token_info = session.get('token_info')
     if not token_info:
         return redirect('/')
@@ -88,7 +88,7 @@ def stats():
             })
 
     return render_template(
-        'stats.html',
+        'tops.html',
         items=items,
         category=category,
         time_range=time_range,

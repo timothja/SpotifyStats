@@ -5,26 +5,28 @@
 <div class="container">
     <h1>Your Spotify Stats</h1>
 
-    <form method="GET" action="/stats">
-        <label for="category">Select Category:</label>
-        <select id="category" name="category" onchange="this.form.submit()">
+    <form class="center" method="GET" action="/tops">
+        <label class="text-light" for="category">Select Category:</label>
+        <select class="cust-btn dropdown-toggle" id="category" name="category">
             <option value="tracks" {% if category == 'tracks' %}selected{% endif %}>Top Songs</option>
             <option value="artists" {% if category == 'artists' %}selected{% endif %}>Top Artists</option>
         </select>
 
-        <label for="time_range">Select Time Range:</label>
-        <select id="time_range" name="time_range" onchange="this.form.submit()">
+        <label class="text-light" for="time_range">Select Time Range:</label>
+        <select class="cust-btn dropdown-toggle" id="time_range" name="time_range">
             <option value="short_term" {% if time_range == 'short_term' %}selected{% endif %}>This Month</option>
             <option value="medium_term" {% if time_range == 'medium_term' %}selected{% endif %}>This Year</option>
             <option value="long_term" {% if time_range == 'long_term' %}selected{% endif %}>All Time</option>
         </select>
 
-        <label for="limit">Select Number of Results:</label>
-        <select id="limit" name="limit" onchange="this.form.submit()">
-            <option value="10" {% if limit == '10' %}selected{% endif %}>Top 10</option>
-            <option value="50" {% if limit == '50' %}selected{% endif %}>Top 50</option>
-            <option value="100" {% if limit == '100' %}selected{% endif %}>Top 100</option>
+        <label class="text-light" for="limit">Select Number of Results:</label>
+        <select class="cust-btn dropdown-toggle" id="limit" name="limit">
+            <option value="10" {% if limit == 10 %}selected{% endif %}>Top 10</option>
+            <option value="25" {% if limit == 25 %}selected{% endif %}>Top 25</option>
+            <option value="50" {% if limit == 50 %}selected{% endif %}>Top 50</option>
         </select>
+
+        <button class="cust-btn" onclick="this.form.submit()">Submit</button>
     </form>
 
     <div class="grid">
