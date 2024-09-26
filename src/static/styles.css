@@ -6,7 +6,29 @@ body {
 }
 
 .container {
-    margin-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Center the form and space out the dropdowns */
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10%; /* Space between dropdowns */
+
+}
+
+/* Sticky form that remains at the top when scrolling */
+.sticky-form {
+    position: -webkit-sticky; /* For Safari */
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Ensure it stays above other content */
+    padding: 15px;
+    background-color: 	#212121;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .cust-btn {
@@ -16,6 +38,11 @@ body {
     text-decoration: none;
     border-radius: 50px;
 }
+
+button.cust-btn:hover {
+    background-color: #1aa34a; /* Darken green on hover */
+}
+
 ul {
     list-style: none;
     padding: 0;
