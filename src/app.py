@@ -87,6 +87,8 @@ def tops():
                 'play_count': play_count,
             })
 
+    
+
     return render_template(
         'tops.html',
         items=items,
@@ -118,11 +120,29 @@ def recently_played():
             'played_at': played_at
         })
 
+    # Get currently playing track
+    now_playing = get_now_playing(sp)
+
     return render_template(
         'recently_played.html',
-        items=items
+        items=items,
+        now_playing=now_playing  
     )
+    
 
+def get_now_playing(sp):
+    now_playing = sp.current_playback()
+    if now_playing and now_playing['is_playing']:
+        track_name = now_playing['item']['name']
+        artists = ', '.join([artist['name'] for artist in now_playing['item']['artists']])
+        return {
+        
+            'track_name': track_name,
+            'artists': artists,
+            'image': now_playing['item']['album']['images'][0]['url'] if now_playing['item']['album']['images'] else None,
+            'progress_ms': now_playing['progress_ms'],
+            'duration_ms': now_playing['item']['duration_ms']
+        }
 
 def calculate_play_counts(recent_tracks):
     play_counts = {}

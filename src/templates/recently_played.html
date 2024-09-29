@@ -3,6 +3,26 @@
 {% block content %}
 
 <div class="container">
+
+    {% if now_playing %}
+    <div class="now-playing">
+        <h2>Currently Playing:</h2>
+        <div class="now-playing-content">
+            <div class="now-playing-image">
+                <img src="{{ now_playing.image }}" alt="{{ now_playing.track_name }}" class="track-image-small">
+            </div>
+            <div class="now-playing-info">
+                <p><strong>{{ now_playing.track_name }}</strong> - {{ now_playing.artists }}</p>
+                
+                <!-- Progress Bar -->
+                <!-- <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: {{ now_playing.progress_percentage }}%%;"></div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     <h1>Recently Played Tracks</h1>
 
     <div class="grid">
