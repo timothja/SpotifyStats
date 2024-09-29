@@ -14,10 +14,9 @@
             <div class="now-playing-info">
                 <p><strong>{{ now_playing.track_name }}</strong> - {{ now_playing.artists }}</p>
                 
-                <!-- Progress Bar -->
-                <!-- <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: {{ now_playing.progress_percentage }}%%;"></div>
-                </div> -->
+
+
+                <p>Progress: {{ now_playing.progress_ms }} / {{ now_playing.duration_ms }} %</p>
             </div>
         </div>
     </div>
